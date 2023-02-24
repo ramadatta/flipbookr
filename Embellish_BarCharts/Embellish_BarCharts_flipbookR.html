@@ -1,0 +1,2770 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Ordinary to Impressive Barcharts using ggplot2</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Prakki Sai Rama Sridatta" />
+    <script src="libs/header-attrs-2.18/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+    <link rel="stylesheet" href="extra.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+
+
+
+layout: true
+  
+---
+
+name: xaringan-title
+class: right, middle
+background-image: url(https://c0.wallpaperflare.com/preview/138/189/220/indonesia-sumatra-lake-toba-panorama.jpg)
+background-size: cover
+
+&lt;h1 style="color: white;"&gt;From Ordinary to Impressive: How to Enhance Your Bar Chart with {ggplot}&lt;/h1&gt;
+
+&lt;h3 style="color: white;"&gt;Prakki Sai Rama Sridatta | Senior Bioinformatician | February 23, 2023&lt;/h3&gt;
+
+---
+
+
+# Hello!
+
+--
+
+Flipbookr is a package that presents aligned, incremental code and a side-by-side output
+
+--
+
+All you need is to install **{flipbookr}** package in R. To get started have a look at "A minimal flipbook" template which should be available once you install the package.
+
+--
+
+In this YouTube video titled **From Ordinary to Impressive: How to Enhance Your Bar Chart with ggplot,** we created barcharts.
+
+--
+
+We will use the same code in this **minimal flipbook** template to showcase the awesome things flipbookr can do! And this should help you to get you building your first flipbooks!
+
+--
+
+Let's get started! **:)**
+
+
+
+---
+class: inverse, middle, center
+
+
+# Classic flipbook (using defaults to walk through code pipeline)
+
+&lt;!-- get a flipbook version of the landmasses_islands_plot code chunk - pauses are where parentheses are balanced --&gt;
+---
+
+count: false
+ 
+
+.panel1-landmasses_islands_plot-auto[
+
+```r
+*as.data.frame(islands)
+```
+]
+ 
+.panel2-landmasses_islands_plot-auto[
+
+```
+                 islands
+Africa             11506
+Antarctica          5500
+Asia               16988
+Australia           2968
+Axel Heiberg          16
+Baffin               184
+Banks                 23
+Borneo               280
+Britain               84
+Celebes               73
+Celon                 25
+Cuba                  43
+Devon                 21
+Ellesmere             82
+Europe              3745
+Greenland            840
+Hainan                13
+Hispaniola            30
+Hokkaido              30
+Honshu                89
+Iceland               40
+Ireland               33
+Java                  49
+Kyushu                14
+Luzon                 42
+Madagascar           227
+Melville              16
+Mindanao              36
+Moluccas              29
+New Britain           15
+New Guinea           306
+New Zealand (N)       44
+New Zealand (S)       58
+Newfoundland          43
+North America       9390
+Novaya Zemlya         32
+Prince of Wales       13
+Sakhalin              29
+South America       6795
+Southampton           16
+Spitsbergen           15
+Sumatra              183
+Taiwan                14
+Tasmania              26
+Tierra del Fuego      19
+Timor                 13
+Vancouver             12
+Victoria              82
+```
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+* rownames_to_column(var="Island")
+```
+]
+ 
+.panel2-landmasses_islands_plot-auto[
+
+```
+             Island islands
+1            Africa   11506
+2        Antarctica    5500
+3              Asia   16988
+4         Australia    2968
+5      Axel Heiberg      16
+6            Baffin     184
+7             Banks      23
+8            Borneo     280
+9           Britain      84
+10          Celebes      73
+11            Celon      25
+12             Cuba      43
+13            Devon      21
+14        Ellesmere      82
+15           Europe    3745
+16        Greenland     840
+17           Hainan      13
+18       Hispaniola      30
+19         Hokkaido      30
+20           Honshu      89
+21          Iceland      40
+22          Ireland      33
+23             Java      49
+24           Kyushu      14
+25            Luzon      42
+26       Madagascar     227
+27         Melville      16
+28         Mindanao      36
+29         Moluccas      29
+30      New Britain      15
+31       New Guinea     306
+32  New Zealand (N)      44
+33  New Zealand (S)      58
+34     Newfoundland      43
+35    North America    9390
+36    Novaya Zemlya      32
+37  Prince of Wales      13
+38         Sakhalin      29
+39    South America    6795
+40      Southampton      16
+41      Spitsbergen      15
+42          Sumatra     183
+43           Taiwan      14
+44         Tasmania      26
+45 Tierra del Fuego      19
+46            Timor      13
+47        Vancouver      12
+48         Victoria      82
+```
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+* rename(Landmasses=islands)
+```
+]
+ 
+.panel2-landmasses_islands_plot-auto[
+
+```
+             Island Landmasses
+1            Africa      11506
+2        Antarctica       5500
+3              Asia      16988
+4         Australia       2968
+5      Axel Heiberg         16
+6            Baffin        184
+7             Banks         23
+8            Borneo        280
+9           Britain         84
+10          Celebes         73
+11            Celon         25
+12             Cuba         43
+13            Devon         21
+14        Ellesmere         82
+15           Europe       3745
+16        Greenland        840
+17           Hainan         13
+18       Hispaniola         30
+19         Hokkaido         30
+20           Honshu         89
+21          Iceland         40
+22          Ireland         33
+23             Java         49
+24           Kyushu         14
+25            Luzon         42
+26       Madagascar        227
+27         Melville         16
+28         Mindanao         36
+29         Moluccas         29
+30      New Britain         15
+31       New Guinea        306
+32  New Zealand (N)         44
+33  New Zealand (S)         58
+34     Newfoundland         43
+35    North America       9390
+36    Novaya Zemlya         32
+37  Prince of Wales         13
+38         Sakhalin         29
+39    South America       6795
+40      Southampton         16
+41      Spitsbergen         15
+42          Sumatra        183
+43           Taiwan         14
+44         Tasmania         26
+45 Tierra del Fuego         19
+46            Timor         13
+47        Vancouver         12
+48         Victoria         82
+```
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+* ggplot(aes(Island,Landmasses))
+```
+]
+ 
+.panel2-landmasses_islands_plot-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot_auto_04_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  ggplot(aes(Island,Landmasses)) +
+* geom_bar(stat="identity")
+```
+]
+ 
+.panel2-landmasses_islands_plot-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot_auto_05_output-1.png)&lt;!-- --&gt;
+]
+
+&lt;style&gt;
+.panel1-landmasses_islands_plot-auto {
+  color: black;
+  width: 38.6060606060606%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel2-landmasses_islands_plot-auto {
+  color: black;
+  width: 59.3939393939394%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel3-landmasses_islands_plot-auto {
+  color: black;
+  width: NA%;
+  hight: 33%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
+
+
+
+---
+
+.pull-left[
+
+# We will do the following: 
+
+- Add a **plot title**
+
+- Change the **position title**
+
+- change the font of the title to **SchoolBell** font downloaded from google 
+]
+
+---
+
+count: false
+ 
+
+.panel1-landmasses_islands_plot2-auto[
+
+```r
+*as.data.frame(islands)
+```
+]
+ 
+.panel2-landmasses_islands_plot2-auto[
+
+```
+                 islands
+Africa             11506
+Antarctica          5500
+Asia               16988
+Australia           2968
+Axel Heiberg          16
+Baffin               184
+Banks                 23
+Borneo               280
+Britain               84
+Celebes               73
+Celon                 25
+Cuba                  43
+Devon                 21
+Ellesmere             82
+Europe              3745
+Greenland            840
+Hainan                13
+Hispaniola            30
+Hokkaido              30
+Honshu                89
+Iceland               40
+Ireland               33
+Java                  49
+Kyushu                14
+Luzon                 42
+Madagascar           227
+Melville              16
+Mindanao              36
+Moluccas              29
+New Britain           15
+New Guinea           306
+New Zealand (N)       44
+New Zealand (S)       58
+Newfoundland          43
+North America       9390
+Novaya Zemlya         32
+Prince of Wales       13
+Sakhalin              29
+South America       6795
+Southampton           16
+Spitsbergen           15
+Sumatra              183
+Taiwan                14
+Tasmania              26
+Tierra del Fuego      19
+Timor                 13
+Vancouver             12
+Victoria              82
+```
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot2-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+* rownames_to_column(var="Island")
+```
+]
+ 
+.panel2-landmasses_islands_plot2-auto[
+
+```
+             Island islands
+1            Africa   11506
+2        Antarctica    5500
+3              Asia   16988
+4         Australia    2968
+5      Axel Heiberg      16
+6            Baffin     184
+7             Banks      23
+8            Borneo     280
+9           Britain      84
+10          Celebes      73
+11            Celon      25
+12             Cuba      43
+13            Devon      21
+14        Ellesmere      82
+15           Europe    3745
+16        Greenland     840
+17           Hainan      13
+18       Hispaniola      30
+19         Hokkaido      30
+20           Honshu      89
+21          Iceland      40
+22          Ireland      33
+23             Java      49
+24           Kyushu      14
+25            Luzon      42
+26       Madagascar     227
+27         Melville      16
+28         Mindanao      36
+29         Moluccas      29
+30      New Britain      15
+31       New Guinea     306
+32  New Zealand (N)      44
+33  New Zealand (S)      58
+34     Newfoundland      43
+35    North America    9390
+36    Novaya Zemlya      32
+37  Prince of Wales      13
+38         Sakhalin      29
+39    South America    6795
+40      Southampton      16
+41      Spitsbergen      15
+42          Sumatra     183
+43           Taiwan      14
+44         Tasmania      26
+45 Tierra del Fuego      19
+46            Timor      13
+47        Vancouver      12
+48         Victoria      82
+```
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot2-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+* rename(Landmasses=islands)
+```
+]
+ 
+.panel2-landmasses_islands_plot2-auto[
+
+```
+             Island Landmasses
+1            Africa      11506
+2        Antarctica       5500
+3              Asia      16988
+4         Australia       2968
+5      Axel Heiberg         16
+6            Baffin        184
+7             Banks         23
+8            Borneo        280
+9           Britain         84
+10          Celebes         73
+11            Celon         25
+12             Cuba         43
+13            Devon         21
+14        Ellesmere         82
+15           Europe       3745
+16        Greenland        840
+17           Hainan         13
+18       Hispaniola         30
+19         Hokkaido         30
+20           Honshu         89
+21          Iceland         40
+22          Ireland         33
+23             Java         49
+24           Kyushu         14
+25            Luzon         42
+26       Madagascar        227
+27         Melville         16
+28         Mindanao         36
+29         Moluccas         29
+30      New Britain         15
+31       New Guinea        306
+32  New Zealand (N)         44
+33  New Zealand (S)         58
+34     Newfoundland         43
+35    North America       9390
+36    Novaya Zemlya         32
+37  Prince of Wales         13
+38         Sakhalin         29
+39    South America       6795
+40      Southampton         16
+41      Spitsbergen         15
+42          Sumatra        183
+43           Taiwan         14
+44         Tasmania         26
+45 Tierra del Fuego         19
+46            Timor         13
+47        Vancouver         12
+48         Victoria         82
+```
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot2-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+*ggplot(aes(reorder(Island,Landmasses), Landmasses))
+```
+]
+ 
+.panel2-landmasses_islands_plot2-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot2_auto_04_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot2-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+ggplot(aes(reorder(Island,Landmasses), Landmasses)) +
+* geom_bar(stat="identity")
+```
+]
+ 
+.panel2-landmasses_islands_plot2-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot2_auto_05_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot2-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+ggplot(aes(reorder(Island,Landmasses), Landmasses)) +
+  geom_bar(stat="identity") +
+* labs(title="Plot of landmasses by Islands", x ="Islands", y = "Landmasses")
+```
+]
+ 
+.panel2-landmasses_islands_plot2-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot2_auto_06_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot2-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+ggplot(aes(reorder(Island,Landmasses), Landmasses)) +
+  geom_bar(stat="identity") +
+  labs(title="Plot of landmasses by Islands", x ="Islands", y = "Landmasses") +
+* theme(
+*   plot.title.position = "plot",
+*   plot.title = element_text(family = "bell", size = 25),
+*   axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+]
+ 
+.panel2-landmasses_islands_plot2-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot2_auto_07_output-1.png)&lt;!-- --&gt;
+]
+
+&lt;style&gt;
+.panel1-landmasses_islands_plot2-auto {
+  color: black;
+  width: 38.6060606060606%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel2-landmasses_islands_plot2-auto {
+  color: black;
+  width: 59.3939393939394%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel3-landmasses_islands_plot2-auto {
+  color: black;
+  width: NA%;
+  hight: 33%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
+
+
+
+
+---
+
+.pull-left[
+
+# We will do the following: 
+
+- Apply **dust** theme from **ggthemr** package
+]
+
+---
+
+count: false
+ 
+
+.panel1-landmasses_islands_plot3-auto[
+
+```r
+*ggthemr('dust')
+```
+]
+ 
+.panel2-landmasses_islands_plot3-auto[
+
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot3-auto[
+
+```r
+ggthemr('dust')
+
+*as.data.frame(islands)
+```
+]
+ 
+.panel2-landmasses_islands_plot3-auto[
+
+```
+                 islands
+Africa             11506
+Antarctica          5500
+Asia               16988
+Australia           2968
+Axel Heiberg          16
+Baffin               184
+Banks                 23
+Borneo               280
+Britain               84
+Celebes               73
+Celon                 25
+Cuba                  43
+Devon                 21
+Ellesmere             82
+Europe              3745
+Greenland            840
+Hainan                13
+Hispaniola            30
+Hokkaido              30
+Honshu                89
+Iceland               40
+Ireland               33
+Java                  49
+Kyushu                14
+Luzon                 42
+Madagascar           227
+Melville              16
+Mindanao              36
+Moluccas              29
+New Britain           15
+New Guinea           306
+New Zealand (N)       44
+New Zealand (S)       58
+Newfoundland          43
+North America       9390
+Novaya Zemlya         32
+Prince of Wales       13
+Sakhalin              29
+South America       6795
+Southampton           16
+Spitsbergen           15
+Sumatra              183
+Taiwan                14
+Tasmania              26
+Tierra del Fuego      19
+Timor                 13
+Vancouver             12
+Victoria              82
+```
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot3-auto[
+
+```r
+ggthemr('dust')
+
+as.data.frame(islands) %&gt;%
+* rownames_to_column(var="Island")
+```
+]
+ 
+.panel2-landmasses_islands_plot3-auto[
+
+```
+             Island islands
+1            Africa   11506
+2        Antarctica    5500
+3              Asia   16988
+4         Australia    2968
+5      Axel Heiberg      16
+6            Baffin     184
+7             Banks      23
+8            Borneo     280
+9           Britain      84
+10          Celebes      73
+11            Celon      25
+12             Cuba      43
+13            Devon      21
+14        Ellesmere      82
+15           Europe    3745
+16        Greenland     840
+17           Hainan      13
+18       Hispaniola      30
+19         Hokkaido      30
+20           Honshu      89
+21          Iceland      40
+22          Ireland      33
+23             Java      49
+24           Kyushu      14
+25            Luzon      42
+26       Madagascar     227
+27         Melville      16
+28         Mindanao      36
+29         Moluccas      29
+30      New Britain      15
+31       New Guinea     306
+32  New Zealand (N)      44
+33  New Zealand (S)      58
+34     Newfoundland      43
+35    North America    9390
+36    Novaya Zemlya      32
+37  Prince of Wales      13
+38         Sakhalin      29
+39    South America    6795
+40      Southampton      16
+41      Spitsbergen      15
+42          Sumatra     183
+43           Taiwan      14
+44         Tasmania      26
+45 Tierra del Fuego      19
+46            Timor      13
+47        Vancouver      12
+48         Victoria      82
+```
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot3-auto[
+
+```r
+ggthemr('dust')
+
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+* rename(Landmasses=islands)
+```
+]
+ 
+.panel2-landmasses_islands_plot3-auto[
+
+```
+             Island Landmasses
+1            Africa      11506
+2        Antarctica       5500
+3              Asia      16988
+4         Australia       2968
+5      Axel Heiberg         16
+6            Baffin        184
+7             Banks         23
+8            Borneo        280
+9           Britain         84
+10          Celebes         73
+11            Celon         25
+12             Cuba         43
+13            Devon         21
+14        Ellesmere         82
+15           Europe       3745
+16        Greenland        840
+17           Hainan         13
+18       Hispaniola         30
+19         Hokkaido         30
+20           Honshu         89
+21          Iceland         40
+22          Ireland         33
+23             Java         49
+24           Kyushu         14
+25            Luzon         42
+26       Madagascar        227
+27         Melville         16
+28         Mindanao         36
+29         Moluccas         29
+30      New Britain         15
+31       New Guinea        306
+32  New Zealand (N)         44
+33  New Zealand (S)         58
+34     Newfoundland         43
+35    North America       9390
+36    Novaya Zemlya         32
+37  Prince of Wales         13
+38         Sakhalin         29
+39    South America       6795
+40      Southampton         16
+41      Spitsbergen         15
+42          Sumatra        183
+43           Taiwan         14
+44         Tasmania         26
+45 Tierra del Fuego         19
+46            Timor         13
+47        Vancouver         12
+48         Victoria         82
+```
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot3-auto[
+
+```r
+ggthemr('dust')
+
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+* ggplot(aes(reorder(Island,Landmasses), Landmasses))
+```
+]
+ 
+.panel2-landmasses_islands_plot3-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot3_auto_05_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot3-auto[
+
+```r
+ggthemr('dust')
+
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  ggplot(aes(reorder(Island,Landmasses), Landmasses)) +
+* geom_bar(stat="identity")
+```
+]
+ 
+.panel2-landmasses_islands_plot3-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot3_auto_06_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot3-auto[
+
+```r
+ggthemr('dust')
+
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  ggplot(aes(reorder(Island,Landmasses), Landmasses)) +
+  geom_bar(stat="identity") +
+* labs(title="Plot of landmasses by Islands", x ="Islands", y = "Landmasses")
+```
+]
+ 
+.panel2-landmasses_islands_plot3-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot3_auto_07_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot3-auto[
+
+```r
+ggthemr('dust')
+
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  ggplot(aes(reorder(Island,Landmasses), Landmasses)) +
+  geom_bar(stat="identity") +
+  labs(title="Plot of landmasses by Islands", x ="Islands", y = "Landmasses") +
+* theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+]
+ 
+.panel2-landmasses_islands_plot3-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot3_auto_08_output-1.png)&lt;!-- --&gt;
+]
+
+&lt;style&gt;
+.panel1-landmasses_islands_plot3-auto {
+  color: black;
+  width: 38.6060606060606%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel2-landmasses_islands_plot3-auto {
+  color: black;
+  width: 59.3939393939394%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel3-landmasses_islands_plot3-auto {
+  color: black;
+  width: NA%;
+  hight: 33%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
+
+
+
+
+---
+
+.pull-left[
+
+# We will do the following: 
+
+- Change the font to **Roboto** font instead of **SchoolBell** font
+- Add labels on top of the bars 
+- Change the Y-axis scale
+]
+
+---
+
+count: false
+ 
+
+.panel1-landmasses_islands_plot4-auto[
+
+```r
+*as.data.frame(islands)
+```
+]
+ 
+.panel2-landmasses_islands_plot4-auto[
+
+```
+                 islands
+Africa             11506
+Antarctica          5500
+Asia               16988
+Australia           2968
+Axel Heiberg          16
+Baffin               184
+Banks                 23
+Borneo               280
+Britain               84
+Celebes               73
+Celon                 25
+Cuba                  43
+Devon                 21
+Ellesmere             82
+Europe              3745
+Greenland            840
+Hainan                13
+Hispaniola            30
+Hokkaido              30
+Honshu                89
+Iceland               40
+Ireland               33
+Java                  49
+Kyushu                14
+Luzon                 42
+Madagascar           227
+Melville              16
+Mindanao              36
+Moluccas              29
+New Britain           15
+New Guinea           306
+New Zealand (N)       44
+New Zealand (S)       58
+Newfoundland          43
+North America       9390
+Novaya Zemlya         32
+Prince of Wales       13
+Sakhalin              29
+South America       6795
+Southampton           16
+Spitsbergen           15
+Sumatra              183
+Taiwan                14
+Tasmania              26
+Tierra del Fuego      19
+Timor                 13
+Vancouver             12
+Victoria              82
+```
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot4-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+* rownames_to_column(var="Island")
+```
+]
+ 
+.panel2-landmasses_islands_plot4-auto[
+
+```
+             Island islands
+1            Africa   11506
+2        Antarctica    5500
+3              Asia   16988
+4         Australia    2968
+5      Axel Heiberg      16
+6            Baffin     184
+7             Banks      23
+8            Borneo     280
+9           Britain      84
+10          Celebes      73
+11            Celon      25
+12             Cuba      43
+13            Devon      21
+14        Ellesmere      82
+15           Europe    3745
+16        Greenland     840
+17           Hainan      13
+18       Hispaniola      30
+19         Hokkaido      30
+20           Honshu      89
+21          Iceland      40
+22          Ireland      33
+23             Java      49
+24           Kyushu      14
+25            Luzon      42
+26       Madagascar     227
+27         Melville      16
+28         Mindanao      36
+29         Moluccas      29
+30      New Britain      15
+31       New Guinea     306
+32  New Zealand (N)      44
+33  New Zealand (S)      58
+34     Newfoundland      43
+35    North America    9390
+36    Novaya Zemlya      32
+37  Prince of Wales      13
+38         Sakhalin      29
+39    South America    6795
+40      Southampton      16
+41      Spitsbergen      15
+42          Sumatra     183
+43           Taiwan      14
+44         Tasmania      26
+45 Tierra del Fuego      19
+46            Timor      13
+47        Vancouver      12
+48         Victoria      82
+```
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot4-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+* rename(Landmasses=islands)
+```
+]
+ 
+.panel2-landmasses_islands_plot4-auto[
+
+```
+             Island Landmasses
+1            Africa      11506
+2        Antarctica       5500
+3              Asia      16988
+4         Australia       2968
+5      Axel Heiberg         16
+6            Baffin        184
+7             Banks         23
+8            Borneo        280
+9           Britain         84
+10          Celebes         73
+11            Celon         25
+12             Cuba         43
+13            Devon         21
+14        Ellesmere         82
+15           Europe       3745
+16        Greenland        840
+17           Hainan         13
+18       Hispaniola         30
+19         Hokkaido         30
+20           Honshu         89
+21          Iceland         40
+22          Ireland         33
+23             Java         49
+24           Kyushu         14
+25            Luzon         42
+26       Madagascar        227
+27         Melville         16
+28         Mindanao         36
+29         Moluccas         29
+30      New Britain         15
+31       New Guinea        306
+32  New Zealand (N)         44
+33  New Zealand (S)         58
+34     Newfoundland         43
+35    North America       9390
+36    Novaya Zemlya         32
+37  Prince of Wales         13
+38         Sakhalin         29
+39    South America       6795
+40      Southampton         16
+41      Spitsbergen         15
+42          Sumatra        183
+43           Taiwan         14
+44         Tasmania         26
+45 Tierra del Fuego         19
+46            Timor         13
+47        Vancouver         12
+48         Victoria         82
+```
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot4-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+* ggplot(aes(reorder(Island,Landmasses), Landmasses))
+```
+]
+ 
+.panel2-landmasses_islands_plot4-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot4_auto_04_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot4-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  ggplot(aes(reorder(Island,Landmasses), Landmasses)) +
+* geom_bar(stat="identity")
+```
+]
+ 
+.panel2-landmasses_islands_plot4-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot4_auto_05_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot4-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  ggplot(aes(reorder(Island,Landmasses), Landmasses)) +
+  geom_bar(stat="identity") +
+* scale_y_continuous(trans='log10')
+```
+]
+ 
+.panel2-landmasses_islands_plot4-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot4_auto_06_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot4-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  ggplot(aes(reorder(Island,Landmasses), Landmasses)) +
+  geom_bar(stat="identity") +
+  scale_y_continuous(trans='log10') +
+* labs(title="Plot of landmasses by Islands", x ="Islands", y = "Landmasses")
+```
+]
+ 
+.panel2-landmasses_islands_plot4-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot4_auto_07_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot4-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  ggplot(aes(reorder(Island,Landmasses), Landmasses)) +
+  geom_bar(stat="identity") +
+  scale_y_continuous(trans='log10') +
+  labs(title="Plot of landmasses by Islands", x ="Islands", y = "Landmasses") +
+* theme(
+*   text=element_text(size=16,  family="roboto"),
+*   plot.title.position = "plot",
+*   plot.title = element_text(family = "roboto", size = 25),
+*   axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+]
+ 
+.panel2-landmasses_islands_plot4-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot4_auto_08_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot4-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  ggplot(aes(reorder(Island,Landmasses), Landmasses)) +
+  geom_bar(stat="identity") +
+  scale_y_continuous(trans='log10') +
+  labs(title="Plot of landmasses by Islands", x ="Islands", y = "Landmasses") +
+  theme(
+    text=element_text(size=16,  family="roboto"),
+    plot.title.position = "plot",
+    plot.title = element_text(family = "roboto", size = 25),
+    axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+* geom_text(aes(label=Landmasses), position=position_dodge(width=0.9), vjust=-0.25)
+```
+]
+ 
+.panel2-landmasses_islands_plot4-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot4_auto_09_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot4-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  ggplot(aes(reorder(Island,Landmasses), Landmasses)) +
+  geom_bar(stat="identity") +
+  scale_y_continuous(trans='log10') +
+  labs(title="Plot of landmasses by Islands", x ="Islands", y = "Landmasses") +
+  theme(
+    text=element_text(size=16,  family="roboto"),
+    plot.title.position = "plot",
+    plot.title = element_text(family = "roboto", size = 25),
+    axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  geom_text(aes(label=Landmasses), position=position_dodge(width=0.9), vjust=-0.25) +
+* coord_cartesian(clip="off")
+```
+]
+ 
+.panel2-landmasses_islands_plot4-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot4_auto_10_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot4-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  ggplot(aes(reorder(Island,Landmasses), Landmasses)) +
+  geom_bar(stat="identity") +
+  scale_y_continuous(trans='log10') +
+  labs(title="Plot of landmasses by Islands", x ="Islands", y = "Landmasses") +
+  theme(
+    text=element_text(size=16,  family="roboto"),
+    plot.title.position = "plot",
+    plot.title = element_text(family = "roboto", size = 25),
+    axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  geom_text(aes(label=Landmasses), position=position_dodge(width=0.9), vjust=-0.25) +
+  coord_cartesian(clip="off")
+```
+]
+ 
+.panel2-landmasses_islands_plot4-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot4_auto_11_output-1.png)&lt;!-- --&gt;
+]
+
+&lt;style&gt;
+.panel1-landmasses_islands_plot4-auto {
+  color: black;
+  width: 38.6060606060606%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel2-landmasses_islands_plot4-auto {
+  color: black;
+  width: 59.3939393939394%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel3-landmasses_islands_plot4-auto {
+  color: black;
+  width: NA%;
+  hight: 33%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
+
+
+
+
+---
+
+.pull-left[
+
+# We will do the following : 
+
+- Highlight a single bar
+]
+
+---
+
+count: false
+ 
+
+.panel1-landmasses_islands_plot5-auto[
+
+```r
+*as.data.frame(islands)
+```
+]
+ 
+.panel2-landmasses_islands_plot5-auto[
+
+```
+                 islands
+Africa             11506
+Antarctica          5500
+Asia               16988
+Australia           2968
+Axel Heiberg          16
+Baffin               184
+Banks                 23
+Borneo               280
+Britain               84
+Celebes               73
+Celon                 25
+Cuba                  43
+Devon                 21
+Ellesmere             82
+Europe              3745
+Greenland            840
+Hainan                13
+Hispaniola            30
+Hokkaido              30
+Honshu                89
+Iceland               40
+Ireland               33
+Java                  49
+Kyushu                14
+Luzon                 42
+Madagascar           227
+Melville              16
+Mindanao              36
+Moluccas              29
+New Britain           15
+New Guinea           306
+New Zealand (N)       44
+New Zealand (S)       58
+Newfoundland          43
+North America       9390
+Novaya Zemlya         32
+Prince of Wales       13
+Sakhalin              29
+South America       6795
+Southampton           16
+Spitsbergen           15
+Sumatra              183
+Taiwan                14
+Tasmania              26
+Tierra del Fuego      19
+Timor                 13
+Vancouver             12
+Victoria              82
+```
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot5-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+* rownames_to_column(var="Island")
+```
+]
+ 
+.panel2-landmasses_islands_plot5-auto[
+
+```
+             Island islands
+1            Africa   11506
+2        Antarctica    5500
+3              Asia   16988
+4         Australia    2968
+5      Axel Heiberg      16
+6            Baffin     184
+7             Banks      23
+8            Borneo     280
+9           Britain      84
+10          Celebes      73
+11            Celon      25
+12             Cuba      43
+13            Devon      21
+14        Ellesmere      82
+15           Europe    3745
+16        Greenland     840
+17           Hainan      13
+18       Hispaniola      30
+19         Hokkaido      30
+20           Honshu      89
+21          Iceland      40
+22          Ireland      33
+23             Java      49
+24           Kyushu      14
+25            Luzon      42
+26       Madagascar     227
+27         Melville      16
+28         Mindanao      36
+29         Moluccas      29
+30      New Britain      15
+31       New Guinea     306
+32  New Zealand (N)      44
+33  New Zealand (S)      58
+34     Newfoundland      43
+35    North America    9390
+36    Novaya Zemlya      32
+37  Prince of Wales      13
+38         Sakhalin      29
+39    South America    6795
+40      Southampton      16
+41      Spitsbergen      15
+42          Sumatra     183
+43           Taiwan      14
+44         Tasmania      26
+45 Tierra del Fuego      19
+46            Timor      13
+47        Vancouver      12
+48         Victoria      82
+```
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot5-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+* rename(Landmasses=islands)
+```
+]
+ 
+.panel2-landmasses_islands_plot5-auto[
+
+```
+             Island Landmasses
+1            Africa      11506
+2        Antarctica       5500
+3              Asia      16988
+4         Australia       2968
+5      Axel Heiberg         16
+6            Baffin        184
+7             Banks         23
+8            Borneo        280
+9           Britain         84
+10          Celebes         73
+11            Celon         25
+12             Cuba         43
+13            Devon         21
+14        Ellesmere         82
+15           Europe       3745
+16        Greenland        840
+17           Hainan         13
+18       Hispaniola         30
+19         Hokkaido         30
+20           Honshu         89
+21          Iceland         40
+22          Ireland         33
+23             Java         49
+24           Kyushu         14
+25            Luzon         42
+26       Madagascar        227
+27         Melville         16
+28         Mindanao         36
+29         Moluccas         29
+30      New Britain         15
+31       New Guinea        306
+32  New Zealand (N)         44
+33  New Zealand (S)         58
+34     Newfoundland         43
+35    North America       9390
+36    Novaya Zemlya         32
+37  Prince of Wales         13
+38         Sakhalin         29
+39    South America       6795
+40      Southampton         16
+41      Spitsbergen         15
+42          Sumatra        183
+43           Taiwan         14
+44         Tasmania         26
+45 Tierra del Fuego         19
+46            Timor         13
+47        Vancouver         12
+48         Victoria         82
+```
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot5-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+* mutate(Case = case_when(Landmasses &gt; 100 &amp; Landmasses &lt; 184 ~ "Special",
+*                                    TRUE ~ "NotSpecial"))
+```
+]
+ 
+.panel2-landmasses_islands_plot5-auto[
+
+```
+             Island Landmasses       Case
+1            Africa      11506 NotSpecial
+2        Antarctica       5500 NotSpecial
+3              Asia      16988 NotSpecial
+4         Australia       2968 NotSpecial
+5      Axel Heiberg         16 NotSpecial
+6            Baffin        184 NotSpecial
+7             Banks         23 NotSpecial
+8            Borneo        280 NotSpecial
+9           Britain         84 NotSpecial
+10          Celebes         73 NotSpecial
+11            Celon         25 NotSpecial
+12             Cuba         43 NotSpecial
+13            Devon         21 NotSpecial
+14        Ellesmere         82 NotSpecial
+15           Europe       3745 NotSpecial
+16        Greenland        840 NotSpecial
+17           Hainan         13 NotSpecial
+18       Hispaniola         30 NotSpecial
+19         Hokkaido         30 NotSpecial
+20           Honshu         89 NotSpecial
+21          Iceland         40 NotSpecial
+22          Ireland         33 NotSpecial
+23             Java         49 NotSpecial
+24           Kyushu         14 NotSpecial
+25            Luzon         42 NotSpecial
+26       Madagascar        227 NotSpecial
+27         Melville         16 NotSpecial
+28         Mindanao         36 NotSpecial
+29         Moluccas         29 NotSpecial
+30      New Britain         15 NotSpecial
+31       New Guinea        306 NotSpecial
+32  New Zealand (N)         44 NotSpecial
+33  New Zealand (S)         58 NotSpecial
+34     Newfoundland         43 NotSpecial
+35    North America       9390 NotSpecial
+36    Novaya Zemlya         32 NotSpecial
+37  Prince of Wales         13 NotSpecial
+38         Sakhalin         29 NotSpecial
+39    South America       6795 NotSpecial
+40      Southampton         16 NotSpecial
+41      Spitsbergen         15 NotSpecial
+42          Sumatra        183    Special
+43           Taiwan         14 NotSpecial
+44         Tasmania         26 NotSpecial
+45 Tierra del Fuego         19 NotSpecial
+46            Timor         13 NotSpecial
+47        Vancouver         12 NotSpecial
+48         Victoria         82 NotSpecial
+```
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot5-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  mutate(Case = case_when(Landmasses &gt; 100 &amp; Landmasses &lt; 184 ~ "Special",
+                                     TRUE ~ "NotSpecial")) %&gt;%
+* ggplot(aes(reorder(Island,Landmasses), Landmasses, fill=Case))
+```
+]
+ 
+.panel2-landmasses_islands_plot5-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot5_auto_05_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot5-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  mutate(Case = case_when(Landmasses &gt; 100 &amp; Landmasses &lt; 184 ~ "Special",
+                                     TRUE ~ "NotSpecial")) %&gt;%
+  ggplot(aes(reorder(Island,Landmasses), Landmasses, fill=Case)) +
+* geom_bar(stat="identity")
+```
+]
+ 
+.panel2-landmasses_islands_plot5-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot5_auto_06_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot5-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  mutate(Case = case_when(Landmasses &gt; 100 &amp; Landmasses &lt; 184 ~ "Special",
+                                     TRUE ~ "NotSpecial")) %&gt;%
+  ggplot(aes(reorder(Island,Landmasses), Landmasses, fill=Case)) +
+  geom_bar(stat="identity") +
+* scale_y_continuous(trans='log10')
+```
+]
+ 
+.panel2-landmasses_islands_plot5-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot5_auto_07_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot5-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  mutate(Case = case_when(Landmasses &gt; 100 &amp; Landmasses &lt; 184 ~ "Special",
+                                     TRUE ~ "NotSpecial")) %&gt;%
+  ggplot(aes(reorder(Island,Landmasses), Landmasses, fill=Case)) +
+  geom_bar(stat="identity") +
+  scale_y_continuous(trans='log10') +
+* scale_fill_manual(values = c("NotSpecial"="tomato3", "Special"="#008080"))
+```
+]
+ 
+.panel2-landmasses_islands_plot5-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot5_auto_08_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot5-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  mutate(Case = case_when(Landmasses &gt; 100 &amp; Landmasses &lt; 184 ~ "Special",
+                                     TRUE ~ "NotSpecial")) %&gt;%
+  ggplot(aes(reorder(Island,Landmasses), Landmasses, fill=Case)) +
+  geom_bar(stat="identity") +
+  scale_y_continuous(trans='log10') +
+  scale_fill_manual(values = c("NotSpecial"="tomato3", "Special"="#008080")) +
+* labs(title="Plot of landmasses by Islands", x ="Islands", y = "Landmasses")
+```
+]
+ 
+.panel2-landmasses_islands_plot5-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot5_auto_09_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot5-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  mutate(Case = case_when(Landmasses &gt; 100 &amp; Landmasses &lt; 184 ~ "Special",
+                                     TRUE ~ "NotSpecial")) %&gt;%
+  ggplot(aes(reorder(Island,Landmasses), Landmasses, fill=Case)) +
+  geom_bar(stat="identity") +
+  scale_y_continuous(trans='log10') +
+  scale_fill_manual(values = c("NotSpecial"="tomato3", "Special"="#008080")) +
+  labs(title="Plot of landmasses by Islands", x ="Islands", y = "Landmasses") +
+* theme(
+*   text=element_text(size=16,  family="roboto"),
+*   plot.title.position = "plot",
+*   plot.title = element_text(family = "roboto", size = 25),
+*   axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
+```
+]
+ 
+.panel2-landmasses_islands_plot5-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot5_auto_10_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot5-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  mutate(Case = case_when(Landmasses &gt; 100 &amp; Landmasses &lt; 184 ~ "Special",
+                                     TRUE ~ "NotSpecial")) %&gt;%
+  ggplot(aes(reorder(Island,Landmasses), Landmasses, fill=Case)) +
+  geom_bar(stat="identity") +
+  scale_y_continuous(trans='log10') +
+  scale_fill_manual(values = c("NotSpecial"="tomato3", "Special"="#008080")) +
+  labs(title="Plot of landmasses by Islands", x ="Islands", y = "Landmasses") +
+  theme(
+    text=element_text(size=16,  family="roboto"),
+    plot.title.position = "plot",
+    plot.title = element_text(family = "roboto", size = 25),
+    axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+* geom_text(aes(label=Landmasses), position=position_dodge(width=0.9), vjust=-0.25)
+```
+]
+ 
+.panel2-landmasses_islands_plot5-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot5_auto_11_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot5-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  mutate(Case = case_when(Landmasses &gt; 100 &amp; Landmasses &lt; 184 ~ "Special",
+                                     TRUE ~ "NotSpecial")) %&gt;%
+  ggplot(aes(reorder(Island,Landmasses), Landmasses, fill=Case)) +
+  geom_bar(stat="identity") +
+  scale_y_continuous(trans='log10') +
+  scale_fill_manual(values = c("NotSpecial"="tomato3", "Special"="#008080")) +
+  labs(title="Plot of landmasses by Islands", x ="Islands", y = "Landmasses") +
+  theme(
+    text=element_text(size=16,  family="roboto"),
+    plot.title.position = "plot",
+    plot.title = element_text(family = "roboto", size = 25),
+    axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  geom_text(aes(label=Landmasses), position=position_dodge(width=0.9), vjust=-0.25) +
+* coord_cartesian(clip="off")
+```
+]
+ 
+.panel2-landmasses_islands_plot5-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot5_auto_12_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot5-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  mutate(Case = case_when(Landmasses &gt; 100 &amp; Landmasses &lt; 184 ~ "Special",
+                                     TRUE ~ "NotSpecial")) %&gt;%
+  ggplot(aes(reorder(Island,Landmasses), Landmasses, fill=Case)) +
+  geom_bar(stat="identity") +
+  scale_y_continuous(trans='log10') +
+  scale_fill_manual(values = c("NotSpecial"="tomato3", "Special"="#008080")) +
+  labs(title="Plot of landmasses by Islands", x ="Islands", y = "Landmasses") +
+  theme(
+    text=element_text(size=16,  family="roboto"),
+    plot.title.position = "plot",
+    plot.title = element_text(family = "roboto", size = 25),
+    axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  geom_text(aes(label=Landmasses), position=position_dodge(width=0.9), vjust=-0.25) +
+  coord_cartesian(clip="off")
+```
+]
+ 
+.panel2-landmasses_islands_plot5-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot5_auto_13_output-1.png)&lt;!-- --&gt;
+]
+
+&lt;style&gt;
+.panel1-landmasses_islands_plot5-auto {
+  color: black;
+  width: 38.6060606060606%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel2-landmasses_islands_plot5-auto {
+  color: black;
+  width: 59.3939393939394%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel3-landmasses_islands_plot5-auto {
+  color: black;
+  width: NA%;
+  hight: 33%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
+
+
+
+
+---
+.pull-left[
+
+# We will do the following :  
+
+- Annotate the highlighted bar with **geom_text**
+- Point the bar with an arrow using **geom_curve**
+- Add a **plot.caption** at the bottom of the chart
+- Position the **legend** on top
+]
+
+---
+
+count: false
+ 
+
+.panel1-landmasses_islands_plot6-auto[
+
+```r
+*as.data.frame(islands)
+```
+]
+ 
+.panel2-landmasses_islands_plot6-auto[
+
+```
+                 islands
+Africa             11506
+Antarctica          5500
+Asia               16988
+Australia           2968
+Axel Heiberg          16
+Baffin               184
+Banks                 23
+Borneo               280
+Britain               84
+Celebes               73
+Celon                 25
+Cuba                  43
+Devon                 21
+Ellesmere             82
+Europe              3745
+Greenland            840
+Hainan                13
+Hispaniola            30
+Hokkaido              30
+Honshu                89
+Iceland               40
+Ireland               33
+Java                  49
+Kyushu                14
+Luzon                 42
+Madagascar           227
+Melville              16
+Mindanao              36
+Moluccas              29
+New Britain           15
+New Guinea           306
+New Zealand (N)       44
+New Zealand (S)       58
+Newfoundland          43
+North America       9390
+Novaya Zemlya         32
+Prince of Wales       13
+Sakhalin              29
+South America       6795
+Southampton           16
+Spitsbergen           15
+Sumatra              183
+Taiwan                14
+Tasmania              26
+Tierra del Fuego      19
+Timor                 13
+Vancouver             12
+Victoria              82
+```
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot6-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+* rownames_to_column(var="Island")
+```
+]
+ 
+.panel2-landmasses_islands_plot6-auto[
+
+```
+             Island islands
+1            Africa   11506
+2        Antarctica    5500
+3              Asia   16988
+4         Australia    2968
+5      Axel Heiberg      16
+6            Baffin     184
+7             Banks      23
+8            Borneo     280
+9           Britain      84
+10          Celebes      73
+11            Celon      25
+12             Cuba      43
+13            Devon      21
+14        Ellesmere      82
+15           Europe    3745
+16        Greenland     840
+17           Hainan      13
+18       Hispaniola      30
+19         Hokkaido      30
+20           Honshu      89
+21          Iceland      40
+22          Ireland      33
+23             Java      49
+24           Kyushu      14
+25            Luzon      42
+26       Madagascar     227
+27         Melville      16
+28         Mindanao      36
+29         Moluccas      29
+30      New Britain      15
+31       New Guinea     306
+32  New Zealand (N)      44
+33  New Zealand (S)      58
+34     Newfoundland      43
+35    North America    9390
+36    Novaya Zemlya      32
+37  Prince of Wales      13
+38         Sakhalin      29
+39    South America    6795
+40      Southampton      16
+41      Spitsbergen      15
+42          Sumatra     183
+43           Taiwan      14
+44         Tasmania      26
+45 Tierra del Fuego      19
+46            Timor      13
+47        Vancouver      12
+48         Victoria      82
+```
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot6-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+* rename(Landmasses=islands)
+```
+]
+ 
+.panel2-landmasses_islands_plot6-auto[
+
+```
+             Island Landmasses
+1            Africa      11506
+2        Antarctica       5500
+3              Asia      16988
+4         Australia       2968
+5      Axel Heiberg         16
+6            Baffin        184
+7             Banks         23
+8            Borneo        280
+9           Britain         84
+10          Celebes         73
+11            Celon         25
+12             Cuba         43
+13            Devon         21
+14        Ellesmere         82
+15           Europe       3745
+16        Greenland        840
+17           Hainan         13
+18       Hispaniola         30
+19         Hokkaido         30
+20           Honshu         89
+21          Iceland         40
+22          Ireland         33
+23             Java         49
+24           Kyushu         14
+25            Luzon         42
+26       Madagascar        227
+27         Melville         16
+28         Mindanao         36
+29         Moluccas         29
+30      New Britain         15
+31       New Guinea        306
+32  New Zealand (N)         44
+33  New Zealand (S)         58
+34     Newfoundland         43
+35    North America       9390
+36    Novaya Zemlya         32
+37  Prince of Wales         13
+38         Sakhalin         29
+39    South America       6795
+40      Southampton         16
+41      Spitsbergen         15
+42          Sumatra        183
+43           Taiwan         14
+44         Tasmania         26
+45 Tierra del Fuego         19
+46            Timor         13
+47        Vancouver         12
+48         Victoria         82
+```
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot6-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+* mutate(Case = case_when(Landmasses &gt; 100 &amp; Landmasses &lt; 184 ~ "Special", TRUE ~ "NotSpecial"))
+```
+]
+ 
+.panel2-landmasses_islands_plot6-auto[
+
+```
+             Island Landmasses       Case
+1            Africa      11506 NotSpecial
+2        Antarctica       5500 NotSpecial
+3              Asia      16988 NotSpecial
+4         Australia       2968 NotSpecial
+5      Axel Heiberg         16 NotSpecial
+6            Baffin        184 NotSpecial
+7             Banks         23 NotSpecial
+8            Borneo        280 NotSpecial
+9           Britain         84 NotSpecial
+10          Celebes         73 NotSpecial
+11            Celon         25 NotSpecial
+12             Cuba         43 NotSpecial
+13            Devon         21 NotSpecial
+14        Ellesmere         82 NotSpecial
+15           Europe       3745 NotSpecial
+16        Greenland        840 NotSpecial
+17           Hainan         13 NotSpecial
+18       Hispaniola         30 NotSpecial
+19         Hokkaido         30 NotSpecial
+20           Honshu         89 NotSpecial
+21          Iceland         40 NotSpecial
+22          Ireland         33 NotSpecial
+23             Java         49 NotSpecial
+24           Kyushu         14 NotSpecial
+25            Luzon         42 NotSpecial
+26       Madagascar        227 NotSpecial
+27         Melville         16 NotSpecial
+28         Mindanao         36 NotSpecial
+29         Moluccas         29 NotSpecial
+30      New Britain         15 NotSpecial
+31       New Guinea        306 NotSpecial
+32  New Zealand (N)         44 NotSpecial
+33  New Zealand (S)         58 NotSpecial
+34     Newfoundland         43 NotSpecial
+35    North America       9390 NotSpecial
+36    Novaya Zemlya         32 NotSpecial
+37  Prince of Wales         13 NotSpecial
+38         Sakhalin         29 NotSpecial
+39    South America       6795 NotSpecial
+40      Southampton         16 NotSpecial
+41      Spitsbergen         15 NotSpecial
+42          Sumatra        183    Special
+43           Taiwan         14 NotSpecial
+44         Tasmania         26 NotSpecial
+45 Tierra del Fuego         19 NotSpecial
+46            Timor         13 NotSpecial
+47        Vancouver         12 NotSpecial
+48         Victoria         82 NotSpecial
+```
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot6-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  mutate(Case = case_when(Landmasses &gt; 100 &amp; Landmasses &lt; 184 ~ "Special", TRUE ~ "NotSpecial")) %&gt;%
+* ggplot(aes(reorder(Island,Landmasses), Landmasses, fill=Case))
+```
+]
+ 
+.panel2-landmasses_islands_plot6-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot6_auto_05_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot6-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  mutate(Case = case_when(Landmasses &gt; 100 &amp; Landmasses &lt; 184 ~ "Special", TRUE ~ "NotSpecial")) %&gt;%
+  ggplot(aes(reorder(Island,Landmasses), Landmasses, fill=Case)) +
+* geom_bar(stat="identity")
+```
+]
+ 
+.panel2-landmasses_islands_plot6-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot6_auto_06_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot6-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  mutate(Case = case_when(Landmasses &gt; 100 &amp; Landmasses &lt; 184 ~ "Special", TRUE ~ "NotSpecial")) %&gt;%
+  ggplot(aes(reorder(Island,Landmasses), Landmasses, fill=Case)) +
+  geom_bar(stat="identity") +
+* scale_y_continuous(trans='log10')
+```
+]
+ 
+.panel2-landmasses_islands_plot6-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot6_auto_07_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot6-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  mutate(Case = case_when(Landmasses &gt; 100 &amp; Landmasses &lt; 184 ~ "Special", TRUE ~ "NotSpecial")) %&gt;%
+  ggplot(aes(reorder(Island,Landmasses), Landmasses, fill=Case)) +
+  geom_bar(stat="identity") +
+  scale_y_continuous(trans='log10') +
+* scale_fill_manual(values = c("NotSpecial"="tomato3", "Special"="#008080"))
+```
+]
+ 
+.panel2-landmasses_islands_plot6-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot6_auto_08_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot6-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  mutate(Case = case_when(Landmasses &gt; 100 &amp; Landmasses &lt; 184 ~ "Special", TRUE ~ "NotSpecial")) %&gt;%
+  ggplot(aes(reorder(Island,Landmasses), Landmasses, fill=Case)) +
+  geom_bar(stat="identity") +
+  scale_y_continuous(trans='log10') +
+  scale_fill_manual(values = c("NotSpecial"="tomato3", "Special"="#008080")) +
+* labs(title="Plot of landmasses by Islands", x ="Islands", y = "Landmasses",
+*      caption = "**NOTE:** Y-axis is in thousands of square miles",)
+```
+]
+ 
+.panel2-landmasses_islands_plot6-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot6_auto_09_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot6-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  mutate(Case = case_when(Landmasses &gt; 100 &amp; Landmasses &lt; 184 ~ "Special", TRUE ~ "NotSpecial")) %&gt;%
+  ggplot(aes(reorder(Island,Landmasses), Landmasses, fill=Case)) +
+  geom_bar(stat="identity") +
+  scale_y_continuous(trans='log10') +
+  scale_fill_manual(values = c("NotSpecial"="tomato3", "Special"="#008080")) +
+  labs(title="Plot of landmasses by Islands", x ="Islands", y = "Landmasses",
+       caption = "**NOTE:** Y-axis is in thousands of square miles",) +
+* theme(text=element_text(size=16,  family="roboto"),
+*   plot.title.position = "plot",
+*   plot.title = element_text(family = "roboto", size = 25, colour = "#000080"),
+*   axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+*   legend.position = "top",
+*   plot.caption = element_markdown(lineheight = 2,colour = "#000080"))
+```
+]
+ 
+.panel2-landmasses_islands_plot6-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot6_auto_10_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot6-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  mutate(Case = case_when(Landmasses &gt; 100 &amp; Landmasses &lt; 184 ~ "Special", TRUE ~ "NotSpecial")) %&gt;%
+  ggplot(aes(reorder(Island,Landmasses), Landmasses, fill=Case)) +
+  geom_bar(stat="identity") +
+  scale_y_continuous(trans='log10') +
+  scale_fill_manual(values = c("NotSpecial"="tomato3", "Special"="#008080")) +
+  labs(title="Plot of landmasses by Islands", x ="Islands", y = "Landmasses",
+       caption = "**NOTE:** Y-axis is in thousands of square miles",) +
+  theme(text=element_text(size=16,  family="roboto"),
+    plot.title.position = "plot",
+    plot.title = element_text(family = "roboto", size = 25, colour = "#000080"),
+    axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+    legend.position = "top",
+    plot.caption = element_markdown(lineheight = 2,colour = "#000080")) +
+* geom_text(aes(label=Landmasses), position=position_dodge(width=0.9), vjust=-0.25, size=4, lineheight = 0)
+```
+]
+ 
+.panel2-landmasses_islands_plot6-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot6_auto_11_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot6-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  mutate(Case = case_when(Landmasses &gt; 100 &amp; Landmasses &lt; 184 ~ "Special", TRUE ~ "NotSpecial")) %&gt;%
+  ggplot(aes(reorder(Island,Landmasses), Landmasses, fill=Case)) +
+  geom_bar(stat="identity") +
+  scale_y_continuous(trans='log10') +
+  scale_fill_manual(values = c("NotSpecial"="tomato3", "Special"="#008080")) +
+  labs(title="Plot of landmasses by Islands", x ="Islands", y = "Landmasses",
+       caption = "**NOTE:** Y-axis is in thousands of square miles",) +
+  theme(text=element_text(size=16,  family="roboto"),
+    plot.title.position = "plot",
+    plot.title = element_text(family = "roboto", size = 25, colour = "#000080"),
+    axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+    legend.position = "top",
+    plot.caption = element_markdown(lineheight = 2,colour = "#000080")) +
+  geom_text(aes(label=Landmasses), position=position_dodge(width=0.9), vjust=-0.25, size=4, lineheight = 0) +
+* coord_cartesian(clip="off")
+```
+]
+ 
+.panel2-landmasses_islands_plot6-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot6_auto_12_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot6-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  mutate(Case = case_when(Landmasses &gt; 100 &amp; Landmasses &lt; 184 ~ "Special", TRUE ~ "NotSpecial")) %&gt;%
+  ggplot(aes(reorder(Island,Landmasses), Landmasses, fill=Case)) +
+  geom_bar(stat="identity") +
+  scale_y_continuous(trans='log10') +
+  scale_fill_manual(values = c("NotSpecial"="tomato3", "Special"="#008080")) +
+  labs(title="Plot of landmasses by Islands", x ="Islands", y = "Landmasses",
+       caption = "**NOTE:** Y-axis is in thousands of square miles",) +
+  theme(text=element_text(size=16,  family="roboto"),
+    plot.title.position = "plot",
+    plot.title = element_text(family = "roboto", size = 25, colour = "#000080"),
+    axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+    legend.position = "top",
+    plot.caption = element_markdown(lineheight = 2,colour = "#000080")) +
+  geom_text(aes(label=Landmasses), position=position_dodge(width=0.9), vjust=-0.25, size=4, lineheight = 0) +
+  coord_cartesian(clip="off") +
+* annotate("text", label = str_wrap("Largest island fully within Indonesian territory",50),
+*          x = c(32.51), y = c(400), color = "black", size = 4)
+```
+]
+ 
+.panel2-landmasses_islands_plot6-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot6_auto_13_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot6-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  mutate(Case = case_when(Landmasses &gt; 100 &amp; Landmasses &lt; 184 ~ "Special", TRUE ~ "NotSpecial")) %&gt;%
+  ggplot(aes(reorder(Island,Landmasses), Landmasses, fill=Case)) +
+  geom_bar(stat="identity") +
+  scale_y_continuous(trans='log10') +
+  scale_fill_manual(values = c("NotSpecial"="tomato3", "Special"="#008080")) +
+  labs(title="Plot of landmasses by Islands", x ="Islands", y = "Landmasses",
+       caption = "**NOTE:** Y-axis is in thousands of square miles",) +
+  theme(text=element_text(size=16,  family="roboto"),
+    plot.title.position = "plot",
+    plot.title = element_text(family = "roboto", size = 25, colour = "#000080"),
+    axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+    legend.position = "top",
+    plot.caption = element_markdown(lineheight = 2,colour = "#000080")) +
+  geom_text(aes(label=Landmasses), position=position_dodge(width=0.9), vjust=-0.25, size=4, lineheight = 0) +
+  coord_cartesian(clip="off") +
+  annotate("text", label = str_wrap("Largest island fully within Indonesian territory",50),
+           x = c(32.51), y = c(400), color = "black", size = 4) +
+* geom_curve(aes(x = 33.51, xend = 35.8, y = 300, yend = 250), curvature = -0.25, color = "#2C3E50", arrow = arrow(length = unit(0.02, "npc")))
+```
+]
+ 
+.panel2-landmasses_islands_plot6-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot6_auto_14_output-1.png)&lt;!-- --&gt;
+]
+
+---
+count: false
+ 
+
+.panel1-landmasses_islands_plot6-auto[
+
+```r
+as.data.frame(islands) %&gt;%
+  rownames_to_column(var="Island") %&gt;%
+  rename(Landmasses=islands) %&gt;%
+  mutate(Case = case_when(Landmasses &gt; 100 &amp; Landmasses &lt; 184 ~ "Special", TRUE ~ "NotSpecial")) %&gt;%
+  ggplot(aes(reorder(Island,Landmasses), Landmasses, fill=Case)) +
+  geom_bar(stat="identity") +
+  scale_y_continuous(trans='log10') +
+  scale_fill_manual(values = c("NotSpecial"="tomato3", "Special"="#008080")) +
+  labs(title="Plot of landmasses by Islands", x ="Islands", y = "Landmasses",
+       caption = "**NOTE:** Y-axis is in thousands of square miles",) +
+  theme(text=element_text(size=16,  family="roboto"),
+    plot.title.position = "plot",
+    plot.title = element_text(family = "roboto", size = 25, colour = "#000080"),
+    axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1),
+    legend.position = "top",
+    plot.caption = element_markdown(lineheight = 2,colour = "#000080")) +
+  geom_text(aes(label=Landmasses), position=position_dodge(width=0.9), vjust=-0.25, size=4, lineheight = 0) +
+  coord_cartesian(clip="off") +
+  annotate("text", label = str_wrap("Largest island fully within Indonesian territory",50),
+           x = c(32.51), y = c(400), color = "black", size = 4) +
+  geom_curve(aes(x = 33.51, xend = 35.8, y = 300, yend = 250), curvature = -0.25, color = "#2C3E50", arrow = arrow(length = unit(0.02, "npc")))
+```
+]
+ 
+.panel2-landmasses_islands_plot6-auto[
+![](Embellish_BarCharts_flipbookR_files/figure-html/landmasses_islands_plot6_auto_15_output-1.png)&lt;!-- --&gt;
+]
+
+&lt;style&gt;
+.panel1-landmasses_islands_plot6-auto {
+  color: black;
+  width: 38.6060606060606%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel2-landmasses_islands_plot6-auto {
+  color: black;
+  width: 59.3939393939394%;
+  hight: 32%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+.panel3-landmasses_islands_plot6-auto {
+  color: black;
+  width: NA%;
+  hight: 33%;
+  float: left;
+  padding-left: 1%;
+  font-size: 80%
+}
+&lt;/style&gt;
+
+
+
+
+
+
+---
+
+
+&lt;!-- adjust font size in this css code chunk, currently 80 --&gt;
+
+&lt;style type="text/css"&gt;
+.remark-code{line-height: 1.5; font-size: 80%}
+
+@media print {
+  .has-continuation {
+    display: block;
+  }
+}
+
+code.r.hljs.remark-code{
+  position: relative;
+  overflow-x: hidden;
+}
+
+
+code.r.hljs.remark-code:hover{
+  overflow-x:visible;
+  width: 500px;
+  border-style: solid;
+}
+&lt;/style&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "20:7",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
